@@ -204,13 +204,32 @@ def chat(receiver_id):
                 return apology("Please write a message")
 
             db.execute("INSERT INTO messages (content,sender_id,receiver_id) VALUES (?,?,?)", content, session["user_id"], receiver_id)
+            db.execute("""
+            DELETE FROM messages
+            WHERE id IN (
+            SELECT id
+            FROM (
+                SELECT id
+                FROM messages
+                WHERE (sender_id = ? AND receiver_id = ?)
+                   OR (sender_id = ? AND receiver_id = ?)
+                ORDER BY id DESC
+                LIMIT 18446744073709551615 OFFSET 30
+            ) AS old_messages
+        )
+        """,
+        session["user_id"],
+        receiver_id,
+        receiver_id,
+        session["user_id"]
+    )
 
     db.execute("UPDATE messages SET is_read = 1 WHERE sender_id = ? AND receiver_id = ? AND is_read = 0"
                ,receiver_id
                ,session["user_id"])
     receiver = db.execute("SELECT username FROM users WHERE id = ?"
                           ,receiver_id)
-    messages = db.execute("SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY id LIMIT 50"
+    messages = db.execute("SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY id "
                           ,session["user_id"]
                           ,receiver_id
                           ,receiver_id
