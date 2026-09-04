@@ -1046,7 +1046,7 @@ body.tasks-bg {
 
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.5);
 
-    transform: translate(80px, -16px);
+    transform: translate(85px, -20px);
 
     transition: transform 0.12s ease, filter 0.12s ease;
 }
