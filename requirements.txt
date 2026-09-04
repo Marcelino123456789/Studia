@@ -4,3 +4,4 @@ cs50
 Werkzeug
 PyMySQL
 requests
+gunicorn
