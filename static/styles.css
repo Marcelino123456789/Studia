@@ -1033,9 +1033,9 @@ body.tasks-bg {
     height: 45px;
     box-sizing: border-box;
 
-    background: #2ecc71;
-    border: 2px solid #2ecc71;
-    border-radius: 10px;
+    background: #3498db;
+    border: none;
+    border-radius: 5px;
 
     color: #111;
     font-family: 'Orbitron', sans-serif;
@@ -1043,6 +1043,8 @@ body.tasks-bg {
     text-align: center;
     padding: 12px;
     outline: none;
+
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.5);
 
     transform: translate(90px, -25px);
 }
@@ -1053,8 +1055,9 @@ body.tasks-bg {
 }
 
 #duration:focus {
-    border-color: #2ecc71;
-    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.3);
+    outline: none;
+    border: none;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.7);
 }
 
 .timer-buttons {
