@@ -1030,7 +1030,6 @@ body.tasks-bg {
 
 #duration {
     width: 120px;
-    height: 45px;
     box-sizing: border-box;
 
     background: #3498db;
@@ -1039,14 +1038,17 @@ body.tasks-bg {
 
     color: #111;
     font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
+    font-size: 10px;
+    font-weight: 700;
     text-align: center;
-    padding: 12px;
+    padding: 14px 10px;
     outline: none;
 
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.5);
 
     transform: translate(90px, -25px);
+
+    transition: transform 0.12s ease, filter 0.12s ease;
 }
 
 #duration::placeholder {
