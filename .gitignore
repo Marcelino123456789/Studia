@@ -1,0 +1,6 @@
+.env
+Studia.db
+flask_session/
+__pycache__/
+*.pyc
+.DS_Store

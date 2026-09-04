@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+    Previous Chats
+{% endblock %}
+{% block page_class %}
+    friends-bg
+{% endblock %}
+{% block main %}
+<div class="friends-page">
+    <h1>Previous Chats</h1>
+    <div class="friends-list">
+        {% if friends %}
+            {% for friend in friends %}
+                <div class="friend">
+                    You chatted with {{ friend.friends_name }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You haven't chatted with anyone yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

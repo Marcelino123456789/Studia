@@ -1,0 +1,1165 @@
+@font-face {
+    font-family: "Waltograph";
+    src: url("/static/fonts/Waltograph.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --navy-deep: #000013;
+    --navy-mid: #16224a;
+    --gold: #d4af6a;
+    --gold-soft: #E0B84C;
+    --paper: #f7f5f0;
+    --white: #ffffff;
+    --shadow-soft: 0 10px 30px rgba(6, 11, 26, 0.35);
+    --font-display: "Waltograph", cursive;
+    --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: var(--font-ui);
+    background-color: var(--navy-deep);
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: transparent !important;
+    border: none !important;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    letter-spacing: 0.5px;
+    color: #d4af6a;
+    line-height: 1;
+}
+.navbar-brand:hover {
+    color: #E0B84C;
+}
+
+.navbar .nav-link {
+    position: relative;
+    color: #d4af6a !important;
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+    padding: 0.3rem 0.6rem;
+    opacity: 0.88;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+    opacity: 1;
+    color: var(--gold-soft) !important;
+}
+
+.navbar a.nav-link[href="/login"] {
+    background: transparent;
+    color: var(--gold) !important;
+    border: none !important;
+    padding: 0.4rem 1rem;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.navbar a.nav-link[href="/login"]:hover {
+    color: var(--gold-soft) !important;
+}
+
+/* ==========================================================================
+   Login / Register submit buttons
+   ========================================================================== */
+.btn.login,
+.btn.register {
+    background-color: #2e9e4f;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.btn.login:hover,
+.btn.register:hover {
+    background-color: #257f41;
+    color: #ffffff;
+}
+
+.btn.login:focus,
+.btn.register:focus {
+    box-shadow: 0 0 0 0.2rem rgba(46, 158, 79, 0.4);
+}
+
+/* ==========================================================================
+   Index / Home page
+   ========================================================================== */
+body {
+    margin: 0;
+    background-color: var(--navy-deep);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body.home-bg {
+    background-image: url("/static/index.png");
+}
+
+.home-page {
+    position: relative;
+    height: calc(100vh - 68px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+}
+.home-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 720px;
+    transform: translateY(-180px);
+}
+
+.home-content h1 {
+    font-family: var(--font-display);
+    color: var(--white);
+    font-size: clamp(4rem, 12vw, 7.5rem);
+    line-height: 1;
+    margin: 0;
+    text-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+.home-content h4 {
+    font-family: var(--font-display);
+    color: #E0B84C;
+    font-weight: normal;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    letter-spacing: 0.5px;
+    margin: 0.5rem 0 0.5rem;
+    opacity: 0.92;
+}
+
+.home-content h4::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 2px;
+    margin: 1.1rem auto 0;
+    background: #E0B84C;
+    opacity: 0.85;
+}
+
+.home-content > div {
+    margin-top: 2.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.home-content button {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--navy-deep);
+    background: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 1.7rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    width: 180px;
+    height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.home-content button:hover {
+    background: #1E3A5F;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(6, 11, 26, 0.45);
+}
+
+.home-content button:active {
+    transform: translateY(-1px);
+}
+
+.home-content button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+    .home-content > div {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .home-content button {
+        width: 100%;
+    }
+
+    .home-page {
+        background-attachment: scroll;
+    }
+}
+
+/* =========================================================
+Notes page
+========================================================= */
+
+body.notes-bg main {
+height: calc(100vh - 68px);
+padding: 0;
+overflow: hidden;
+}
+
+.notes-page-layout {
+display: grid;
+grid-template-columns: 1fr 1fr;
+height: 100%;
+overflow: hidden;
+}
+
+.notes-container {
+height: 100%;
+overflow-y: auto;
+overflow-x: hidden;
+padding: 1rem 2rem;
+}
+
+.add-note-section {
+height: 100%;
+overflow: hidden;
+}
+
+.add-note-section form {
+background: transparent;
+box-shadow: none;
+border-radius: 0;
+padding: 1.5rem;
+max-width: 480px;
+margin: 0 auto;
+text-align: right;
+transform: translateY(-50px);
+}
+
+.add-note-section input,
+.add-note-section textarea {
+background: var(--white);
+color: #000;
+outline: none;
+border: none;
+box-shadow: none;
+width: 100%;
+height: 100px;
+max-height: 70px;
+}
+
+.add-note-section input,
+.add-note-section textarea {
+outline: none;
+border: none;
+box-shadow: none;
+}
+
+.add-note-section input:focus,
+.add-note-section textarea:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.add-note-section textarea {
+min-height: 100px;
+resize: vertical;
+}
+
+.add-note-section .add-note-btn {
+    background-color: #2e5d3b;
+    color: #ffffff;
+    border: none;
+    outline: none;
+
+    display: block;
+    margin-left: auto;
+    margin-top: -150px;
+}
+
+/* =========================================================
+Individual Notes
+========================================================= */
+
+.notes {
+background: transparent;
+color: #000;
+box-shadow: none;
+border-radius: 0;
+padding: 1rem;
+width: 400px;
+max-width: 100%;
+text-align: left;
+}
+
+.notes .note-header {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: flex-start;
+gap: 10px;
+width: auto;
+margin-bottom: 0.5rem;
+}
+
+.notes .note-header h5 {
+    color: #000;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    word-break: normal;
+    width: 200px;
+    overflow-wrap: break-word;
+}
+
+.notes .note-header form {
+display: block !important;
+width: auto !important;
+height: auto !important;
+max-width: none !important;
+margin: 0 !important;
+padding: 0 !important;
+position: static !important;
+transform: none !important;
+}
+
+.notes .btn-danger {
+display: block !important;
+width: auto !important;
+margin: 0 !important;
+background-color: #c0392b;
+border: none;
+padding: 0.2rem 0.6rem;
+font-size: 0.8rem;
+line-height: 1.3;
+border-radius: 6px;
+}
+
+.notes .delete-note-btn {
+background-color: #a93226;
+color : #ffffff
+}
+
+.notes p {
+color: #000;
+margin: 0 0 0.75rem;
+white-space: pre-wrap;
+word-break: break-word;
+}
+/*=====================================
+tasks
+========================================*/
+.tasks-page-layout {
+    display: flex;
+    flex-direction: row-reverse; /* puts add-task on the right, tasks on the left */
+    align-items: flex-start;
+    gap: 30px;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body.tasks-bg {
+    overflow: hidden;
+}
+
+.tasks-container {
+    flex: 1;
+    height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.tasks {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+
+    background-color: transparent;
+    border-radius: 0;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.task-content {
+    width: 100%;
+    overflow-wrap: break-word;
+    font-family: "Cabin Sketch", cursive;
+    font-size: 30px;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.task-actions span {
+    white-space: nowrap;
+}
+
+.task-actions form {
+    margin: 0;
+}
+
+.tasks p {
+    color: #000000;
+    margin: 0;
+}
+.tasks p:first-child {
+    width: 400px;
+}
+
+.tasks p:nth-child(2) {
+    width: 120px;
+}
+
+.tasks form {
+    margin: 0;
+}
+
+.add-task-section {
+    flex: 0 0 300px;
+    position: sticky;
+    top: 20px;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.btn-danger {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+    color: #00000;
+}
+
+.btn-danger:hover {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.btn-primary {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    color: #00000;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+
+.add-task-section .form-control {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    font-family: "Playfair Display", serif;
+}
+
+.add-task-section textarea::placeholder {
+    color: #ffffff;
+    opacity: 1;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+.add-task-section textarea {
+    color: #ffffff !important;
+    caret-color: #ffffff;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+.task-due-date {
+    background-color: #dc3545;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.add-task-section input[type="date"] {
+    color: #ffffff;
+}
+
+.add-task-section input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: brightness(0) invert(1);
+}
+
+.add-task-section {
+    transform: translate(-76px, 100px);
+}
+.add-task-section input[type="date"] {
+    width: 180px;
+    height: 35px;
+    font-size: 14px;
+    position: relative;
+    left: 60px;
+}
+.btn-primary:hover {
+    background-color: #000000 !important;
+    border-color: none !important;
+    color: #E0B84C !important
+}
+
+/* --------------------------------------------------------------------------
+   SHARED VARIABLES (used only within .search-bg / .friends-bg / .chat-bg)
+   -------------------------------------------------------------------------- */
+
+.search-bg,
+.friends-bg,
+.chat-bg {
+  --chat-green: #2e9e4f;          /* Search button */
+  --chat-navy: #16233f;           /* Previous Chats / navy button */
+  --chat-red: #d32f2f;            /* status / notification text */
+  --chat-black: #111111;          /* sent message bubble + headings */
+  --chat-blue: #2f6fed;           /* received message bubble */
+  --chat-title-font: "Playfair Display", serif;
+}
+
+/* ==========================================================================
+   1. SEARCH PAGE  (body.search-bg, template wraps content in .search-page)
+   ========================================================================== */
+
+.search-bg .search-page {
+  /* base page feel: solid, not transparent */
+  background-color: transparent; /* page bg comes from body/site; container itself stays clean */
+}
+
+/* "Chat with me" heading */
+.search-bg .search-header h1 {
+  font-family: var(--font-display);
+  color: #000000;
+  font-weight: 600;
+  transform: translate(30px,30px);
+}
+
+/* Container for the two action forms (Previous Chats + Search) */
+.search-bg .search-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  transform: translate(30px,50px);
+}
+
+.search-bg .search-actions form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+/* "Enter username" input — clean, no border/outline/glow ever */
+.search-bg input[name="receiver_username"] {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: #f2f2f2;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  color: #000000;
+}
+
+.search-bg input[name="receiver_username"]:hover,
+.search-bg input[name="receiver_username"]:focus,
+.search-bg input[name="receiver_username"]:focus-visible {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: #ebebeb; /* subtle feedback without a border/glow */
+}
+
+/* Search button — green, wherever it appears on these pages */
+.search-bg button[value="search"],
+.friends-bg button[value="search"],
+.chat-bg button[value="search"] {
+  background-color: var(--chat-green);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.search-bg button[value="search"]:hover,
+.friends-bg button[value="search"]:hover,
+.chat-bg button[value="search"]:hover {
+  background-color: #257f41;
+}
+
+/* Previous Chats button — deep navy blue */
+.search-bg button[value="friends"] {
+  background-color: var(--chat-navy);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.search-bg button[value="friends"]:hover {
+  background-color: #0f1930;
+}
+
+/* Status / notification text ("No new messages.", "You have X messages...") */
+.search-bg .received-content {
+    margin-top: 5rem;
+    text-align: center;
+    max-height: 100px;
+    overflow-y: auto;
+    transform: translateX(30px);
+}
+
+.search-bg .message-notification,
+.search-bg .received-content p {
+  color: var(--chat-red);
+  font-weight: 500;
+  margin: 0.35rem 0;
+  /* To reposition an individual line, adjust margin/padding here,
+     or add `text-align: left/right;` as needed. */
+}
+
+/* ==========================================================================
+   2. FRIENDS PAGE  (body.friends-bg, template wraps content in .friends-page)
+   ========================================================================== */
+
+.friends-bg .friends-page h1 {
+  font-family: var(--font-display);
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  transform: translate(30px,30px);
+}
+
+.friends-bg .friends-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  transform: translateY(30px);
+}
+
+.friends-bg .friend {
+  background-color: trasparent ;
+  color: var(--chat-navy);
+  font-family: var(--font-display);
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  width: 100%;
+  weight:300;
+  max-width: 420px;
+  text-align: left;
+  transform: translate(30px,30px);
+}
+
+.friends-bg .friends-list p {
+  color: #555555;
+}
+
+/* ==========================================================================
+   3. CHAT PAGE  (body.chat-bg, template wraps content in .chat-page)
+   ========================================================================== */
+
+.chat-bg .chat-page {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* "Chatting with X" heading */
+.chat-bg .chat-header h5 {
+  font-family: var(--chat-title-font);
+  color: var(--chat-black);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  transform: translate(-120px,-20px);
+}
+
+/* Messages area — ONLY this scrolls, fixed max height */
+.chat-bg .messages-container {
+  max-height: 35vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: transparent;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+  transform: translate(37px,-30px);
+}
+
+.chat-bg .message-row {
+  display: flex;
+  width: 100%;
+}
+
+.chat-bg .message-row.sent {
+  justify-content: flex-end;
+}
+
+.chat-bg .message-row.received {
+  justify-content: flex-start;
+}
+
+.chat-bg .message {
+  max-width: 75%;
+  padding: 0.45rem 0.8rem;
+  border-radius: 16px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+/* Sent by me: right side, black */
+.chat-bg .sent-message {
+  background-color: var(--chat-blue);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+/* Received: left side, blue */
+.chat-bg .received-message {
+  background-color: var(--chat-black);
+  color: #ffffff;
+  border-bottom-left-radius: 4px;
+}
+
+/* Send-message form — stays put, does not scroll with messages */
+.chat-bg .send-message-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  transform: translate(100px,-20px);
+}
+
+/* "Write a message..." input — clean, minimal, slightly transparent */
+.chat-bg textarea[name="content"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.6rem 0.9rem;
+  border-radius: 20px;
+  color: var(--chat-black);
+
+  resize: none;
+  min-height: 42px;
+  max-height: 120px;
+  overflow-y: auto;
+  flex: none;
+  width: 400px;
+}
+
+.chat-bg textarea[name="content"]:hover,
+.chat-bg textarea[name="content"]:focus,
+.chat-bg textarea[name="content"]:focus-visible {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Send button */
+.chat-bg button[value="send"] {
+  background-color: var(--chat-green);
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.55rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.chat-bg button[value="send"]:hover {
+  background-color: #257f41;
+}
+
+/* ==========================================================================
+   CALENDAR PAGE
+   ========================================================================== */
+
+.calendar-bg {
+    overflow: hidden;
+}
+
+.calendar-bg .calendar-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+    transform: translateY(-30px);
+}
+
+.calendar-bg .calendar-header h1 {
+    font-family:var(--font-display) ;
+    color: #111111;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+
+/* Calendar box */
+
+.calendar-bg .calendar {
+    width: 700px;
+    max-width: 90%;
+}
+
+/* Month navigation */
+
+.calendar-bg .calendar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.calendar-bg .calendar-top h2 {
+    margin: 0;
+    color: #111111;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+}
+
+.calendar-bg .calendar-top button {
+    border: none;
+    background-color: #16233f;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.calendar-bg .calendar-top button:hover {
+    background-color: #0f1930;
+}
+
+/* Weekday names */
+
+.calendar-bg .calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.calendar-bg .calendar-weekdays div {
+    text-align: center;
+    font-weight: 600;
+    color: #111111;
+}
+
+/* Days */
+
+.calendar-bg .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-bg .calendar-day {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #ffffff;
+    color: #111111;
+
+    border-radius: 6px;
+
+    font-weight: 500;
+}
+
+/* Empty spaces before the first day */
+
+.calendar-bg .calendar-day.empty {
+    background-color: transparent;
+}
+
+/* Day with task */
+
+.calendar-bg .calendar-day.has-task {
+    background-color: #d32f2f;
+    color: #ffffff;
+}
+
+/* Today */
+
+.calendar-bg .calendar-day.today {
+    background-color: #2e9e4f;
+    color: #ffffff;
+}
+
+/* Today + task */
+
+.calendar-bg .calendar-day.today-task {
+    background-color: #e0b84c;
+    color: #111111;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
+
+.timer-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+}
+
+.timer-container {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    text-align: center;
+    box-shadow: none;
+    max-width: 420px;
+    margin: 0 auto;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.timer-container h1 {
+    color: #888;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.control-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+
+    position: relative;
+    top: 100px;
+}
+
+/* ---- LED-style timer display ---- */
+#timer-display {
+    background: transparent;
+    color: #ff2b2b;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 90px;
+    letter-spacing: 8px;
+    line-height: 1;
+    padding: 20px 10px;
+    margin: 0 auto 30px auto;
+    text-shadow:
+        0 0 8px rgba(255, 40, 40, 0.9),
+        0 0 20px rgba(255, 20, 20, 0.7),
+        0 0 40px rgba(255, 0, 0, 0.5);
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 130px;
+    left: 95px;
+}
+
+
+#duration {
+    width: 120px;
+    box-sizing: border-box;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px;
+    outline: none;
+    transform: translate(70px, -10px);
+}
+
+#duration::placeholder {
+    color: #ffffff;
+    opacity: 1;
+}
+
+#duration:focus {
+    border-color: #ff2b2b;
+}
+
+.timer-buttons {
+    display: flex;
+    gap: 12px;
+    width: auto;
+    position: relative;
+    top: -20px;
+    left: 80px;
+}
+
+.timer-buttons button {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #111;
+    cursor: pointer;
+    transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.timer-buttons button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.timer-buttons button:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+}
+
+#start-btn {
+    background: #2ecc71;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+}
+
+#pause-btn {
+    background: #f1c40f;
+    box-shadow: 0 4px 12px rgba(241, 196, 15, 0.4);
+}
+
+#stop-btn {
+    background: #e74c3c;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+
+body.notes-bg {
+    background-image: url("/static/notes.png");
+}
+
+body.chat-bg {
+    background-image: url("/static/search.png");
+}
+
+body.friends-bg {
+    background-image: url("/static/search.png");
+}
+
+body.search-bg {
+    background-image: url("/static/search.png");
+}
+
+body.timer-bg {
+    background-image: url("/static/timer.png");
+}
+
+body.calendar-bg {
+    background-image: url("/static/calendar.png");
+}
+
+body.tasks-bg {
+    background-image: url("/static/tasks.png");
+}
+
+body.about-bg {
+    background-image: url("/static/about.png");
+}
+
+body.login-bg {
+    background-image: url("/static/login.png");
+}
+
+body.register-bg {
+    background-image: url("/static/register.png");
+}
+
+.meme-top,
+.meme-bottom {
+    color: #ffffff;
+    font-family: "Waltograph", cursive;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+    font-size: 0.7rem;
+    line-height: 1.1;
+}
+
+footer p {
+    color: #ffffff;
+}

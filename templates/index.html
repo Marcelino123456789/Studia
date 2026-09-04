@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}
+Index
+{% endblock %}
+{% block page_class %}
+    home-bg
+{% endblock %}
+{% block main %}
+<div class="home-page">
+<div class="home-content">
+    <h1>Studia</h1>
+    <h4>Welcome my friend !</h4>
+    <div>
+        <button class="notes" onclick="window.location.href='{{ url_for('notes') }}'">
+        Notes
+        </button>
+        <button class="stuia_chatbot" onclick="window.location.href='{{ url_for('search') }}'">
+            Chat with me!
+        </button>
+        <button class="timer" onclick="window.location.href='{{ url_for('timer') }}'">
+            Timer
+        </button>
+        <button class="calendar" onclick="window.location.href='{{ url_for('calendar') }}'">
+            Calendar
+        </button>
+        <button class="tasks" onclick="window.location.href='{{ url_for('tasks') }}'">
+            Tasks
+        </button>
+    </div>
+</div>
+</div>
+{% endblock %}
+

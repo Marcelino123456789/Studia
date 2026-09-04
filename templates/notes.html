@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}
+Notes
+{% endblock %}
+{% block page_class %}
+    notes-bg
+{% endblock %}
+{% block main %}
+    <div class="notes-page-layout">
+    <!-- Notes: left side -->
+    <div class="notes-container">
+        {% for note in notes %}
+            <div class="notes">
+                <div class="note-header">
+                    <h5>{{ note.title }}</h5>
+                    <form action="/notes" method="post">
+                        <input type="hidden" name="note_id" value="{{ note.id }}">
+                        <button type="submit" name="action" value="delete" class="btn delete-note-btn">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                <p>{{ note.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="add-note-section">
+    <form action="/notes" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="title" placeholder="Title" type="text">
+        </div>
+        <div class="mb-3">
+            <textarea
+                class="form-control mx-auto w-auto"
+                name="content"
+                placeholder="Write your note..."></textarea>
+        </div>
+        <button type="submit" name="action" value="add" class="btn add-note-btn">
+            Add Note
+        </button>
+    </form>
+    </div>
+    </div>
+{% endblock %}
+

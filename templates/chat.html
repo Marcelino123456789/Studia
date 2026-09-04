@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chat
+{% endblock %}
+
+{% block page_class %}
+chat-bg
+{% endblock %}
+{% block main %}
+<div class="chat-page">
+<div class="chat-header">
+    <h5>Chatting with {{ receiver_username }} ...</h5>
+</div>
+<div class="messages-container">
+    {% for message in messages %}
+        {% if message.sender_id == session["user_id"] %}
+            <div class="message-row sent">
+                <div class="message sent-message">
+                    {{ message.content }}
+                </div>
+            </div>
+        {% else %}
+            <div class="message-row received">
+                <div class="message received-message">
+                    {{ message.content }}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+<form action="{{ url_for('chat', receiver_id=receiver_id) }}" method="post" class="send-message-form">
+    <textarea name="content" placeholder="Write a message..." rows="1"></textarea>
+    <button type="submit" name="action" value="send">
+        Send
+    </button>
+</form>
+</div>
+{% endblock %}

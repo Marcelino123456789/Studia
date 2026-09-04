@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+        <!-- Bootstrap 5.3 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+                crossorigin="anonymous"></script>
+        <link href="/static/favicon.ico" rel="icon">
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Studia: {% block title %}{% endblock %}</title>
+    </head>
+    <body class="{% block page_class %}{% endblock %}">
+        <!-- Navigation Bar -->
+        <nav class="bg-light border navbar navbar-expand-md navbar-light">
+            <div class="container-fluid">
+                <!-- Studia -->
+                <a class="navbar-brand" href="/about">
+                    <strong>Studia</strong>
+                </a>
+                <button aria-controls="navbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        class="navbar-toggler"
+                        data-bs-target="#navbar"
+                        data-bs-toggle="collapse"
+                        type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session["user_id"] %}
+                        <!-- Logged In -->
+                        <ul class="navbar-nav ms-auto mt-2 align-items-md-center">
+                            <li class="nav-item">
+                                <a class="nav-link position-relative"
+                                   href="/search"
+                                   title="{{ unread_count }} unread message(s)">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         width="20"
+                                         height="20"
+                                         fill="currentColor"
+                                         viewBox="0 0 16 16"
+                                         aria-hidden="true">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                                    </svg>
+                                    <span class="visually-hidden">Notifications</span>
+                                    {% if unread_count and unread_count > 0 %}
+                                        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                            <span class="visually-hidden">{{ unread_count }} unread messages</span>
+                                        </span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Help
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Log Out</a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <!-- Not Logged In -->
+                        <ul class="navbar-nav ms-auto mt-2 align-items-md-center">
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Help
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Log In</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        {% if session["user_id"] %}
+            <!-- Site-wide alarm: lets the timer's sound keep playing
+                 even after navigating away from the /timer page. -->
+            <audio id="alarm-audio"
+                   src="{{ url_for('static', filename='alarm.mp3') }}"
+                   loop
+                   preload="auto"></audio>
+
+            <script>
+
+                let alarmActive = false;
+                const alarmAudio = document.getElementById("alarm-audio");
+
+
+                function startAlarm() {
+
+                    if (alarmActive) {
+                        return;
+                    }
+
+                    alarmActive = true;
+
+                    const display = document.getElementById("timer-display");
+
+                    if (display) {
+                        display.classList.add("alarm-flash");
+                    }
+
+                    // Remember when the alarm first started so later
+                    // page loads can resume from the right spot instead
+                    // of restarting the clip from 0:00 every time.
+                    if (!sessionStorage.getItem("alarmStartedAt")) {
+                        sessionStorage.setItem("alarmStartedAt", Date.now().toString());
+                    }
+
+
+                    function seekToCurrentPosition() {
+
+                        const startedAt = Number(sessionStorage.getItem("alarmStartedAt"));
+
+                        if (startedAt && alarmAudio.duration) {
+
+                            const elapsedSeconds = (Date.now() - startedAt) / 1000;
+
+                            alarmAudio.currentTime = elapsedSeconds % alarmAudio.duration;
+
+                        } else {
+
+                            alarmAudio.currentTime = 0;
+                        }
+
+                        const playPromise = alarmAudio.play();
+
+                        // Browsers block audio not tied to a user gesture
+                        // (e.g. right after a fresh page load). If that
+                        // happens, retry on the user's next interaction.
+                        if (playPromise !== undefined) {
+
+                            playPromise.catch(function () {
+
+                                const resumeOnInteraction = function () {
+
+                                    alarmAudio.play();
+
+                                    document.removeEventListener("click", resumeOnInteraction);
+                                };
+
+                                document.addEventListener("click", resumeOnInteraction, { once: true });
+                            });
+                        }
+                    }
+
+
+                    // Metadata (needed for .duration) may not be loaded yet
+                    if (alarmAudio.readyState >= 1) {
+
+                        seekToCurrentPosition();
+
+                    } else {
+
+                        alarmAudio.addEventListener("loadedmetadata", seekToCurrentPosition, { once: true });
+                    }
+                }
+
+
+                function stopAlarm() {
+
+                    alarmActive = false;
+
+                    const display = document.getElementById("timer-display");
+
+                    if (display) {
+                        display.classList.remove("alarm-flash");
+                    }
+
+                    sessionStorage.removeItem("alarmStartedAt");
+
+                    alarmAudio.pause();
+                    alarmAudio.currentTime = 0;
+                }
+
+
+                // Runs on every page load. If the timer already finished
+                // (status "finished") before this page was opened, pick
+                // the alarm back up here too.
+                (async function checkAlarmState() {
+
+                    try {
+
+                        const response = await fetch("/timer/status");
+
+                        const data = await response.json();
+
+                        if (data.status === "finished") {
+
+                            startAlarm();
+                        }
+
+                    } catch (err) {
+                        // Not logged in, or a network hiccup - ignore.
+                    }
+
+                })();
+
+            </script>
+        {% endif %}
+
+        <!-- Flash Messages -->
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary mb-0 text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+        <!-- Page Content -->
+        <main class="container py-5 text-center">
+            {% block main %}{% endblock %}
+        </main>
+    </body>
+</html>

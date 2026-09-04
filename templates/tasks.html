@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}
+    Tasks
+{% endblock %}
+{% block page_class %}
+    tasks-bg
+{% endblock %}
+{% block main %}
+    <div class="tasks-page-layout">
+        <!-- Tasks: left side -->
+        <div class="tasks-container">
+            {% for task in tasks %}
+                <div class="tasks">
+                    <div class="task-content">
+                        {{ task.content }}
+                    </div>
+                    <div class="task-actions">
+                        <span class="task-due-date">{{ task.due_date }}</span>
+                        <form action="/tasks" method="post">
+                            <input
+                                type="hidden"
+                                name="task_id"
+                                value="{{ task.id }}">
+                            <button
+                                type="submit"
+                                name="action"
+                                value="done"
+                                class="btn btn-danger">
+                                Done
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        <!-- Add Task: right side -->
+        <div class="add-task-section">
+            <form action="/tasks" method="post">
+                <div class="mb-3">
+                    <textarea
+                        class="form-control mx-auto w-auto"
+                        name="content"
+                        placeholder="Write your task..."
+                        required></textarea>
+                </div>
+                <div class="mb-3">
+                    <input
+                        type="date"
+                        name="due_date"
+                        class="form-control"
+                        required>
+                </div>
+                <button
+                    type="submit"
+                    name="action"
+                    value="add"
+                    class="btn btn-primary">
+                    Add Task
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

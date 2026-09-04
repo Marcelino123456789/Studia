@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}
+    Search
+{% endblock %}
+{% block page_class %}
+    search-bg
+{% endblock %}
+{% block main %}
+<div class="search-page">
+    <div class = "search-header">
+        <h1>Chat with me !</h1>
+    </div>
+    <div class="search-actions">
+        <form action="/search" method="post">
+            <button type="submit" name="action" value="friends">
+                Previous Chats
+            </button>
+        </form>
+        <form action="/search" method="post">
+            <input type="text" name="receiver_username" placeholder="Enter username" autocomplete="off">
+            <button type="submit" name="action" value="search">
+                Search
+            </button>
+        </form>
+    </div>
+    <div class="received-content">
+        {% if unread_messages %}
+            {% for message in unread_messages %}
+                <div class="message-notification">
+                    You have {{ message.unread_count }}
+                    {% if message.unread_count == 1 %}
+                        message
+                    {% else %}
+                        messages
+                    {% endif %}
+                    from {{ message.username }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No new messages.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

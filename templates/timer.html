@@ -1,0 +1,324 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Timer
+{% endblock %}
+
+{% block page_class %}
+    timer-bg
+{% endblock %}
+
+{% block main %}
+
+<style>
+
+#timer-display.alarm-flash {
+
+    animation: timer-flash 1s steps(1, start) infinite;
+
+}
+
+@keyframes timer-flash {
+
+    50% {
+        opacity: 0.15;
+    }
+
+}
+
+</style>
+
+<div class="timer-container">
+
+    <div id="timer-display">
+        00:00
+    </div>
+
+    <div class="control-panel">
+
+        <input
+            type="number"
+            id="duration"
+            min="1"
+            max="120"
+            placeholder="Minutes"
+        >
+
+        <div class="timer-buttons">
+
+            <button id="start-btn" type="button">
+                Start
+            </button>
+
+            <button id="pause-btn" type="button">
+                Pause
+            </button>
+
+            <button id="stop-btn" type="button">
+                Stop
+            </button>
+
+        </div>
+
+    </div>
+
+    <p id="timer-status" class="visually-hidden">Stopped</p>
+
+</div>
+
+
+<script>
+
+let timerInterval = null;
+let status = "stopped";
+let remaining = 0;
+
+
+// -------------------------
+// Display
+// -------------------------
+function updateDisplay() {
+
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+
+    document.getElementById("timer-display").textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    document.getElementById("timer-status").textContent =
+        status.charAt(0).toUpperCase() + status.slice(1);
+}
+
+
+// -------------------------
+// Countdown
+// -------------------------
+function startCountdown() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(function () {
+
+        if (remaining > 0) {
+
+            remaining--;
+
+            updateDisplay();
+
+        }
+
+        if (remaining <= 0) {
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+
+            remaining = 0;
+            status = "finished";
+
+            updateDisplay();
+
+            startAlarm();
+
+            // Sync the server so the "finished" (alarm-ringing) state
+            // survives a refresh or navigating away and back.
+            fetch("/timer/status");
+
+        }
+
+    }, 1000);
+}
+
+
+// -------------------------
+// START
+// -------------------------
+document.getElementById("start-btn").addEventListener("click", async function () {
+
+    const minutes = Number(
+        document.getElementById("duration").value
+    );
+
+    if (minutes <= 0 || !Number.isFinite(minutes)) {
+
+        alert("Enter the number of minutes.");
+
+        return;
+    }
+
+    if (minutes > 120) {
+
+        alert("Max time is 120 minutes.");
+
+        return;
+    }
+
+    // Stop any old countdown
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    stopAlarm();
+
+    // Convert minutes to seconds
+    const duration = minutes * 60;
+
+
+    const response = await fetch("/timer/start", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            duration: duration
+        })
+    });
+
+
+    const data = await response.json();
+
+
+    status = data.status;
+    remaining = data.remaining;
+
+
+    updateDisplay();
+
+    startCountdown();
+
+    document.getElementById("pause-btn").textContent = "Pause";
+
+});
+
+
+// -------------------------
+// PAUSE / RESUME
+// -------------------------
+document.getElementById("pause-btn").addEventListener("click", async function () {
+
+    // Nothing to pause/resume unless the timer is actively running or paused
+    if (status !== "running" && status !== "paused") {
+        return;
+    }
+
+
+    // Always stop local countdown before talking to server
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+
+    const response = await fetch("/timer/pause", {
+
+        method: "POST"
+
+    });
+
+
+    const data = await response.json();
+
+
+    status = data.status;
+    remaining = data.remaining;
+
+
+    updateDisplay();
+
+
+    // If the server resumed it,
+    // start the local countdown again.
+    if (status === "running" && remaining > 0) {
+
+        startCountdown();
+
+    }
+
+
+    // Update button label
+    document.getElementById("pause-btn").textContent =
+        (status === "paused") ? "Resume" : "Pause";
+
+});
+
+
+// -------------------------
+// STOP
+// -------------------------
+document.getElementById("stop-btn").addEventListener("click", async function () {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    stopAlarm();
+
+
+    const response = await fetch("/timer/stop", {
+
+        method: "POST"
+
+    });
+
+
+    const data = await response.json();
+
+
+    status = data.status;
+    remaining = data.remaining;
+
+
+    updateDisplay();
+
+    document.getElementById("pause-btn").textContent = "Pause";
+
+});
+
+
+// -------------------------
+// LOAD TIMER
+// -------------------------
+async function loadTimer() {
+
+    const response = await fetch("/timer/status");
+
+    const data = await response.json();
+
+
+    status = data.status;
+    remaining = data.remaining;
+
+
+    updateDisplay();
+
+
+    if (status === "running" && remaining > 0) {
+
+        startCountdown();
+
+    } else if (status === "finished") {
+
+        // Timer already hit zero before this page load (or refresh) -
+        // keep the alarm going until Stop or Start is clicked.
+        startAlarm();
+
+    }
+
+
+    document.getElementById("pause-btn").textContent =
+        (status === "paused") ? "Resume" : "Pause";
+
+}
+
+
+// -------------------------
+// Initial load
+// -------------------------
+loadTimer();
+
+</script>
+
+{% endblock %}
