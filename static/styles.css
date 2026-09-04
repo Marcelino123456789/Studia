@@ -1029,7 +1029,7 @@ body.tasks-bg {
 
 
 #duration {
-    width: 115px;
+    width: 105px;
     box-sizing: border-box;
 
     background: #3498db;
@@ -1046,7 +1046,7 @@ body.tasks-bg {
 
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.5);
 
-    transform: translate(85px, -20px);
+    transform: translate(90px, -20px);
 
     transition: transform 0.12s ease, filter 0.12s ease;
 }
