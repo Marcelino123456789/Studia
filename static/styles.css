@@ -1030,11 +1030,12 @@ body.tasks-bg {
 
 #duration {
     width: 120px;
+    height: 45px;
     box-sizing: border-box;
 
-    background: transparent;
-    border: none;
-    border-radius: 0;
+    background: #16233f;
+    border: 2px solid #16233f;
+    border-radius: 8px;
 
     color: white;
     font-family: 'Orbitron', sans-serif;
@@ -1042,6 +1043,7 @@ body.tasks-bg {
     text-align: center;
     padding: 12px;
     outline: none;
+
     transform: translate(70px, -10px);
 }
 
@@ -1051,7 +1053,8 @@ body.tasks-bg {
 }
 
 #duration:focus {
-    border-color: #ff2b2b;
+    border-color: #16233f;
+    box-shadow: 0 0 0 2px rgba(22, 35, 63, 0.3);
 }
 
 .timer-buttons {
