@@ -715,10 +715,11 @@ body.tasks-bg {
    ========================================================================== */
 
 .chat-bg .chat-page {
-max-width: 640px;
-height: calc(100vh - 80px);
-margin: 0 auto;
-overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 640px;
+    margin: 0 auto;
 }
 
 /* "Chatting with X" heading */
