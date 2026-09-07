@@ -771,7 +771,7 @@ body.tasks-bg {
   background-color: var(--chat-blue);
   color: #ffffff;
   border-bottom-right-radius: 4px;
-  transform: translateX(-13px);
+  transform: translateX(-17px);
 }
 
 /* Received: left side, blue */
@@ -829,7 +829,7 @@ body.tasks-bg {
   cursor: pointer;
   transition: background-color 0.15s ease;
   flex-shrink: 0;
-  transform: translateY(-10px);
+  transform: translateY(-15px);
 }
 
 .chat-bg button[value="send"]:hover {
