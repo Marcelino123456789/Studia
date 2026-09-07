@@ -771,6 +771,7 @@ body.tasks-bg {
   background-color: var(--chat-blue);
   color: #ffffff;
   border-bottom-right-radius: 4px;
+  transform: translateX(-10px);
 }
 
 /* Received: left side, blue */
@@ -786,7 +787,7 @@ body.tasks-bg {
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
-  transform: translate(100px,-20px);
+  transform: translate(100px,150px);
 }
 
 /* "Write a message..." input — clean, minimal, slightly transparent */
