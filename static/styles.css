@@ -771,7 +771,7 @@ body.tasks-bg {
   background-color: var(--chat-blue);
   color: #ffffff;
   border-bottom-right-radius: 4px;
-  transform: translateX(-10px);
+  transform: translateX(-13px);
 }
 
 /* Received: left side, blue */
@@ -787,7 +787,7 @@ body.tasks-bg {
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
-  transform: translate(100px,150px);
+  transform: translate(100px,250px);
 }
 
 /* "Write a message..." input — clean, minimal, slightly transparent */
@@ -829,6 +829,7 @@ body.tasks-bg {
   cursor: pointer;
   transition: background-color 0.15s ease;
   flex-shrink: 0;
+  transform: translateY(-10px);
 }
 
 .chat-bg button[value="send"]:hover {
