@@ -711,88 +711,87 @@ body.tasks-bg {
 }
 
 /* ==========================================================================
-   3. CHAT PAGE
+   3. CHAT PAGE  (body.chat-bg, template wraps content in .chat-page)
    ========================================================================== */
 
 .chat-bg .chat-page {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  align-items: stretch;
   max-width: 640px;
-  height: calc(100vh - 80px);
   margin: 0 auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
 }
+
 /* "Chatting with X" heading */
 .chat-bg .chat-header h5 {
   font-family: var(--chat-title-font);
   color: var(--chat-black);
   font-weight: 600;
-  margin: 0 0 0.75rem 0;
+  margin-bottom: 1rem;
+  transform: translate(-120px,-20px);
 }
-/* Messages area — ONLY this area scrolls */
+
+/* Messages area — ONLY this scrolls, fixed max height */
 .chat-bg .messages-container {
-  flex: 1;
-  min-height: 0;
+  max-height: 35vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 1rem 0.25rem;
+  padding: 1rem;
   background-color: transparent;
   border-radius: 4px;
-  margin: 0;
+  margin-bottom: 0.75rem;
+  transform: translate(37px,-30px);
 }
-/* Each message row */
+
 .chat-bg .message-row {
   display: flex;
   width: 100%;
-  flex-shrink: 0;
 }
+
 .chat-bg .message-row.sent {
   justify-content: flex-end;
 }
+
 .chat-bg .message-row.received {
   justify-content: flex-start;
 }
-/* Message bubble */
+
 .chat-bg .message {
   max-width: 75%;
   padding: 0.45rem 0.8rem;
   border-radius: 16px;
   text-align: left;
   word-wrap: break-word;
-  overflow-wrap: break-word;
 }
-/* Sent by me — BLUE, RIGHT */
+
+/* Sent by me: right side, black */
 .chat-bg .sent-message {
   background-color: var(--chat-blue);
   color: #ffffff;
   border-bottom-right-radius: 4px;
 }
-/* Received — BLACK, LEFT */
+
+/* Received: left side, blue */
 .chat-bg .received-message {
   background-color: var(--chat-black);
   color: #ffffff;
   border-bottom-left-radius: 4px;
 }
-/* Send-message form — ALWAYS stays at the bottom */
+
+/* Send-message form — stays put, does not scroll with messages */
 .chat-bg .send-message-form {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  width: 100%;
   flex-shrink: 0;
-  padding: 0.75rem 0 1rem 0;
-  margin: 0;
-  background-color: transparent;
+  transform: translate(100px,-20px);
 }
-/* "Write a message..." input */
+
+/* "Write a message..." input — clean, minimal, slightly transparent */
 .chat-bg textarea[name="content"] {
   flex: 1;
-  width: auto;
-  min-width: 0;
   border: none;
   outline: none;
   box-shadow: none;
@@ -800,12 +799,15 @@ body.tasks-bg {
   padding: 0.6rem 0.9rem;
   border-radius: 20px;
   color: var(--chat-black);
+
   resize: none;
   min-height: 42px;
   max-height: 120px;
   overflow-y: auto;
-  box-sizing: border-box;
+  flex: none;
+  width: 400px;
 }
+
 .chat-bg textarea[name="content"]:hover,
 .chat-bg textarea[name="content"]:focus,
 .chat-bg textarea[name="content"]:focus-visible {
@@ -814,6 +816,7 @@ body.tasks-bg {
   box-shadow: none;
   background-color: rgba(0, 0, 0, 0.08);
 }
+
 /* Send button */
 .chat-bg button[value="send"] {
   background-color: var(--chat-green);
@@ -826,6 +829,7 @@ body.tasks-bg {
   transition: background-color 0.15s ease;
   flex-shrink: 0;
 }
+
 .chat-bg button[value="send"]:hover {
   background-color: #257f41;
 }
