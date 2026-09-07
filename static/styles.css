@@ -782,7 +782,7 @@ body.tasks-bg {
 
 /* Send-message form — stays put, does not scroll with messages */
 .chat-bg .send-message-form {
-  display: flex;
+  position: fixed;
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
